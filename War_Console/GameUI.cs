@@ -24,7 +24,8 @@ namespace War_Console
         }
         private void PlayGame()
         {
-            while (_playerHand.Count > 1 && _dealerHand.Count > 1)
+            int rounds = 0;
+            do
             {
                 Console.WriteLine($"You have {_playerHand.Count()} cards remaining.\n" +
                     $"The dealer has {_dealerHand.Count()} cards remaining.\n\n\n\n");
@@ -55,7 +56,9 @@ namespace War_Console
                     Console.WriteLine("It's a tie! This means War!");
                     War();
                 }
+                rounds++;
             }
+            while (_playerHand.Count > 1 && _dealerHand.Count > 1 && rounds <= 100);
         }
 
         public List<Card> Shuffle()
@@ -151,13 +154,17 @@ namespace War_Console
 
         private void DeclareWinner()
         {
-            if (_dealerHand.Count < 1)
+            if (_dealerHand.Count < _playerHand.Count)
             {
                 Console.WriteLine("You win!!");
             }
-            else if (_playerHand.Count < 1)
+            else if (_playerHand.Count < _dealerHand.Count)
             {
                 Console.WriteLine("Dealer wins. Better luck next time.");
+            }
+            else
+            {
+                Console.WriteLine("No one wins this time! Both players still have the same number of cards.");
             }
             Console.WriteLine("Press any key to play again");
             Console.ReadKey();
@@ -165,7 +172,6 @@ namespace War_Console
 
         private void PrintHands()
         {
-            Console.Clear();
             Console.WriteLine();
             Console.WriteLine("Player Cards\n");
             foreach (var card in _playerHand)

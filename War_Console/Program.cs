@@ -10,6 +10,7 @@ namespace War_Console
     {
         static void Main(string[] args)
         {
+
             GameUI ui = new GameUI();
             ui.Run();
         }
